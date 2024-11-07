@@ -13,11 +13,15 @@ provider "azurerm" {
     features {}
 }
 
+//Resource group
+
 module "rg" {
   source = "../Project-2-module/resource-group"
   resource_name = var.resource_name
   location = var.location
 }
+
+//virtual network
 
 module "vnet" {
   source = "../Project-2-module/vnet"
@@ -29,6 +33,8 @@ module "vnet" {
 
   depends_on = [ module.rg ]
 }
+
+//subnet
 
 module "subnets" {
   source = "../Project-2-module/subnet"
@@ -75,29 +81,7 @@ module "nsg_rule" {
     depends_on = [ module.nsg ]
 }
 
-# module "nsg_rule" {
-#   source = "../Project-2-module/nsg-rule"
-#   for_each = module.nsg
-
-#   nsg_name                   = each.value.nsg_name
-#   resource_name              = module.rg.resource_name
-#   location                   = module.rg.location
-#     name                       = each.value.name
-#     priority                   = each.value.priority
-#     direction                  = each.value.direction
-#     access                     = each.value.access
-#     protocol                   = each.value.protocol
-#     source_port_range          = each.value.source_port_range
-#     destination_port_range     = each.value.destination_port_range
-#     source_address_prefix      = each.value.source_address_prefix
-#     destination_address_prefix = each.value.destination_address_prefix
-
-
-#   depends_on = [module.nsg]
-# }
-
-
-//nsg-1 to sub-1 associate
+//nsg associate subnet
 
 module "nsg-associate-to-sub" {
   source = "../Project-2-module/nsg-associate"
@@ -117,6 +101,8 @@ module "route_table" {
   location = module.rg.location
   depends_on = [ module.rg, module.vnet, module.subnets, module.nsg ]
 }
+
+// subnet associate routetable
 
 module "sub-to-route-associate" {
   source = "../Project-2-module/route-table-associate"
