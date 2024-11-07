@@ -34,14 +34,27 @@ variable "security_rules" {
     access                     = string
     protocol                   = string
     source_port_range          = string
-    destination_port_range     = string
+    destination_port_ranges     = list(string)
     source_address_prefix      = string
     destination_address_prefix = string
+    nsg_name                   = string
    }))
+}
+
+variable "subnet-to-nsg-associate" {
+  type = map(object({
+    subnet_id = string
+  }))
 }
 
 variable "route_tables" {
   type = map(object({
     route_table_name = string
+  }))
+}
+
+variable "subnet-to-route-associate" {
+  type = map(object({
+    subnet_id = string
   }))
 }

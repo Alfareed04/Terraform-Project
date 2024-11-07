@@ -43,38 +43,69 @@ nsg = {
 }
 
   security_rules= {
-    "security_rules1" = {
-    name                       = "allow_ssh"
+    "nsg-1" = {
+    name                       = "allow_port"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "22"
+    destination_port_ranges    = ["22","80","443"]
     source_address_prefix      = "*"
     destination_address_prefix = "*"
+    nsg_name                   = "nsg-1"
     },
-    "security_rules2" = {
-    name                       = "allow_http"
+    "nsg-2" = {
+    name                       = "allow_ports"
     priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "80"
+    destination_port_ranges    = ["22","80","443"]
     source_address_prefix      = "*"
     destination_address_prefix = "*"
+    nsg_name                   = "nsg-2"
   },
-    "security_rules3" = {
-    name                       = "allow_https"
+    "nsg-3" = {
+    name                       = "allow_ports"
     priority                   = 102
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "443"
+    destination_port_ranges    = ["22","80","443"]
     source_address_prefix      = "*"
     destination_address_prefix = "*"
+    nsg_name                   = "nsg-3"
+  },
+    "nsg-4" = {
+    name                       = "allow_ports"
+    priority                   = 103
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_ranges    = ["22","80","443"]
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+    nsg_name                   = "nsg-4"
+  }
+
+}
+
+subnet-to-nsg-associate = {
+  "nsg-1" = {
+    subnet_id = "subnet1"
+  },
+  "nsg-2" = {
+    subnet_id = "subnet2"
+  },
+  "nsg-3" = {
+    subnet_id = "subnet3"
+  },
+  "nsg-4" = {
+    subnet_id = "subnet4"
   }
 }
 
@@ -90,6 +121,21 @@ route_tables = {
   },
   "route4" = {
     route_table_name = "route4"
+  }
+}
+
+subnet-to-route-associate = {
+  "route1" = {
+    subnet_id = "subnet1"
+  },
+  "route2" = {
+    subnet_id = "subnet2"
+  },
+  "route3" = {
+    subnet_id = "subnet3"
+  },
+  "route4" = {
+    subnet_id = "subnet4"
   }
 }
 

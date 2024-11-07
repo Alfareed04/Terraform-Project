@@ -35,7 +35,7 @@ variable "source_port_range" {
 }
 
 variable "destination_port_range" {
-  type = string
+  type = list(string)
 }
 
 variable "source_address_prefix" {
